@@ -5,7 +5,7 @@ public class TransectionModal {
     private String docID , teacherName , no_of_classes , amount , paymentID , subject , selectedClass , timestamp;
     Boolean isClassesComplete;
 
-    public TransectionModal(String docID , String userName, String userMoblileNo, String userEmail, String userID, String teacherName, String no_of_classes, String amount, String paymentID, String subject, String selectedClass,String timestamp, Boolean iscomplete ) {
+    public TransectionModal(String docID , String userName, String userMoblileNo, String userEmail, String userID, String teacherName, String no_of_classes, String amount, String paymentID, String subject, String selectedClass,String timestamp, Boolean isClassesCompleted ) {
         this.docID = docID;
         this.userName = userName;
         this.userMoblileNo = userMoblileNo;
@@ -18,7 +18,7 @@ public class TransectionModal {
         this.subject = subject;
         this.selectedClass = selectedClass;
         this.timestamp = timestamp;
-        this.isClassesComplete = iscomplete;
+        this.isClassesComplete = isClassesCompleted;
     }
 
     public String getDocID() {

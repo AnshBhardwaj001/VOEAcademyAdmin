@@ -60,8 +60,8 @@ public class TransectionRecyclerViewAdapter extends RecyclerView.Adapter<Transec
         holder.userName.setText(userName);
         holder.userMobleNo.setText(userMobileNo);
         holder.userEmail.setText(userEmail);
-        final Boolean[] markRead = {transections.get(position).getIsClassesComplete()};
-        if(!markRead[0]){
+        final boolean[] completed = {transections.get(position).getIsClassesComplete()};
+        if(!completed[0]){
             holder.isComplete.setText("On Going");
             holder.complete.setBackgroundResource(R.color.voe_color);
             holder.complete.setOnClickListener(new View.OnClickListener() {
