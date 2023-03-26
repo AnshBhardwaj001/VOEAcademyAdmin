@@ -54,7 +54,6 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
-
                             for (QueryDocumentSnapshot document : task.getResult()) {
 
                                 transections.add(new TransectionModal( document.getId(), (String) document.get("userName"),(String)document.get("userMoblileNo"),(String)document.get("userEmail"),(String)document.get("userID"),"Teacher Name : "+document.get("teacherName"),"Classes Booked : "+document.get("no_of_classes"),"Amount paid : "+document.get("amount"),"Payment ID : "+document.get("paymentID"),"Subject : "+document.get("subject"),"Class : "+document.get("selectedClass"), "Checkout Time : "+document.get("timeStamp") , (Boolean) document.get("isClassesCompleted")));
