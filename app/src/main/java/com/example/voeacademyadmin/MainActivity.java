@@ -10,14 +10,19 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.firestore.core.OrderBy;
 
 import java.util.ArrayList;
 
@@ -32,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        getSupportActionBar().hide();
 
         voe_db_firestore = FirebaseFirestore.getInstance();
         transectionRef = voe_db_firestore.collection("ClassBooking");
@@ -49,14 +55,14 @@ public class MainActivity extends AppCompatActivity {
         ArrayList<TransectionModal> transections= new ArrayList<>();
 
         transectionRef = voe_db_firestore.collection("ClassBooking");
-        transectionRef.get()
+        transectionRef.orderBy("timeStamp" , Query.Direction.DESCENDING).get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
 
-                                transections.add(new TransectionModal( document.getId(), (String) document.get("userName"),(String)document.get("userMoblileNo"),(String)document.get("userEmail"),(String)document.get("userID"),"Teacher Name : "+document.get("teacherName"),"Classes Booked : "+document.get("no_of_classes"),"Amount paid : "+document.get("amount"),"Payment ID : "+document.get("paymentID"),"Subject : "+document.get("subject"),"Class : "+document.get("selectedClass"), "Checkout Time : "+document.get("timeStamp") , (Boolean) document.get("isClassesCompleted")));
+                                transections.add(new TransectionModal( document.getId(), (String) document.get("userName"),(String)document.get("userMoblileNo"),(String)document.get("userEmail"),(String)document.get("userID"),"Teacher Name : "+document.get("teacherName"),"Classes Booked : "+document.get("no_of_classes"),"Amount paid : "+document.get("amount"),"Payment ID : "+document.get("paymentID"),"Subject : "+document.get("subject"),"Class : "+document.get("selectedClass"), (Timestamp)document.get("timeStamp") , (Boolean) document.get("isClassesCompleted")));
 
                             }
 

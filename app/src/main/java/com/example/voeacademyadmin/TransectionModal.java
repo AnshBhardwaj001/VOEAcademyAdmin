@@ -1,11 +1,14 @@
 package com.example.voeacademyadmin;
 
+import com.google.firebase.Timestamp;
+
 public class TransectionModal {
     private String userName , userMoblileNo , userEmail , userID;
-    private String docID , teacherName , no_of_classes , amount , paymentID , subject , selectedClass , timestamp;
+    private String docID , teacherName , no_of_classes , amount , paymentID , subject , selectedClass ;
+    Timestamp timestamp;
     Boolean isClassesComplete;
 
-    public TransectionModal(String docID , String userName, String userMoblileNo, String userEmail, String userID, String teacherName, String no_of_classes, String amount, String paymentID, String subject, String selectedClass,String timestamp, Boolean isClassesCompleted ) {
+    public TransectionModal(String docID , String userName, String userMoblileNo, String userEmail, String userID, String teacherName, String no_of_classes, String amount, String paymentID, String subject, String selectedClass,Timestamp timestamp, Boolean isClassesCompleted ) {
         this.docID = docID;
         this.userName = userName;
         this.userMoblileNo = userMoblileNo;
@@ -104,11 +107,14 @@ public class TransectionModal {
         this.selectedClass = selectedClass;
     }
 
-    public String getTimeStamp() {
+    public Timestamp getTimeStamp() {
         return timestamp;
     }
     public Boolean getIsClassesComplete() {
         return isClassesComplete;
     }
 
+    public void setIsClassesComplete(Boolean isclassesComplete) {
+        isClassesComplete = isclassesComplete;
+    }
 }

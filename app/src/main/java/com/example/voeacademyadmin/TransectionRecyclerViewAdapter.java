@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.voeacademyadmin.TransectionModal;
+import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -41,7 +42,7 @@ public class TransectionRecyclerViewAdapter extends RecyclerView.Adapter<Transec
         String subject = transections.get(position).getSubject();
         String selected_class = transections.get(position).getSelectedClass();
         String paymentId = transections.get(position).getPaymentID();
-        String timestamp = transections.get(position).getTimeStamp();
+        Timestamp timestamp = transections.get(position).getTimeStamp();
         String amount = transections.get(position).getAmount();
         String  docID = transections.get(position).getDocID();
         String userID = transections.get(position).getUserID();
@@ -55,7 +56,7 @@ public class TransectionRecyclerViewAdapter extends RecyclerView.Adapter<Transec
         holder.selectedSubject.setText(subject);
         holder.selectedClass.setText(selected_class);
         holder.amount.setText(amount);
-        holder.timestamp.setText(timestamp);
+        holder.timestamp.setText(timestamp.toDate().toLocaleString());
         holder.userID.setText(userID);
         holder.userName.setText(userName);
         holder.userMobleNo.setText(userMobileNo);
@@ -72,6 +73,8 @@ public class TransectionRecyclerViewAdapter extends RecyclerView.Adapter<Transec
                     docRef.update("isClassesCompleted", true);
                     holder.complete.setBackgroundResource(R.color.unread_message);
                     holder.isComplete.setText("Classes Completed");
+                    transections.get(holder.getAdapterPosition()).setIsClassesComplete(true);
+
                 }
             });
         }else {

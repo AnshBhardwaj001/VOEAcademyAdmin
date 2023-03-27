@@ -16,7 +16,7 @@
         android:layout_height="wrap_content"
         android:background="@color/voe_color"
         android:fontFamily="@font/poppins_black"
-        android:text="Transections"
+        android:text="Transactions"
         android:textAlignment="center"
         android:textColor="@color/white"
         android:textSize="38dp" />
