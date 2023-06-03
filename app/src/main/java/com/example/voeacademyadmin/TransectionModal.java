@@ -4,11 +4,11 @@ import com.google.firebase.Timestamp;
 
 public class TransectionModal {
     private String userName , userMoblileNo , userEmail , userID;
-    private String docID , teacherName , no_of_classes , amount , paymentID , subject , selectedClass ;
+    private String docID , teacherName , no_of_classes , amount , paymentID , subject , selectedClass , classStatus , conform;
     Timestamp timestamp;
     Boolean isClassesComplete;
 
-    public TransectionModal(String docID , String userName, String userMoblileNo, String userEmail, String userID, String teacherName, String no_of_classes, String amount, String paymentID, String subject, String selectedClass,Timestamp timestamp, Boolean isClassesCompleted ) {
+    public TransectionModal(String docID , String userName, String userMoblileNo, String userEmail, String userID, String teacherName, String no_of_classes, String amount, String paymentID, String subject, String selectedClass,Timestamp timestamp, Boolean isClassesCompleted , String classStatus , String conform) {
         this.docID = docID;
         this.userName = userName;
         this.userMoblileNo = userMoblileNo;
@@ -22,6 +22,8 @@ public class TransectionModal {
         this.selectedClass = selectedClass;
         this.timestamp = timestamp;
         this.isClassesComplete = isClassesCompleted;
+        this.classStatus = classStatus;
+        this.conform = conform;
     }
 
     public String getDocID() {
@@ -116,5 +118,21 @@ public class TransectionModal {
 
     public void setIsClassesComplete(Boolean isclassesComplete) {
         isClassesComplete = isclassesComplete;
+    }
+
+    public String getClassStatus() {
+        return classStatus;
+    }
+
+    public void setClassStatus(String classStatus) {
+        this.classStatus = classStatus;
+    }
+
+    public String getConform() {
+        return conform;
+    }
+
+    public void setConform(String conform) {
+        this.conform = conform;
     }
 }

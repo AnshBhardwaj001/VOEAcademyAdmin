@@ -49,6 +49,7 @@ public class TransectionRecyclerViewAdapter extends RecyclerView.Adapter<Transec
         String userName = transections.get(position).getUserName();
         String userMobileNo = transections.get(position).getUserMoblileNo();
         String userEmail = transections.get(position).getUserEmail();
+        String conform = transections.get(position).getConform();
 
         holder.paymentId.setText(paymentId);
         holder.teacherName.setText(teacher);
@@ -61,6 +62,7 @@ public class TransectionRecyclerViewAdapter extends RecyclerView.Adapter<Transec
         holder.userName.setText(userName);
         holder.userMobleNo.setText(userMobileNo);
         holder.userEmail.setText(userEmail);
+        holder.conform.setText(conform);
         final boolean[] completed = {transections.get(position).getIsClassesComplete()};
         if(!completed[0]){
             holder.isComplete.setText("On Going");
@@ -81,6 +83,68 @@ public class TransectionRecyclerViewAdapter extends RecyclerView.Adapter<Transec
             holder.isComplete.setText("Classes Completed");
             holder.complete.setBackgroundResource(R.color.unread_message);
         }
+
+        if(!(conform.equalsIgnoreCase("Conform class"))){
+            holder.denyBtw.setBackgroundResource(R.color.unread_message);
+            holder.acceptBtw.setBackgroundResource(R.color.unread_message);
+        }
+
+        if(conform.equalsIgnoreCase("Conform class")){
+            holder.denyBtw.setBackgroundResource(R.color.voe_color);
+            holder.acceptBtw.setBackgroundResource(R.color.voe_color);
+            holder.denyBtw.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    FirebaseFirestore voe_db_firestore = FirebaseFirestore.getInstance();
+                    DocumentReference docRef = voe_db_firestore.collection("ClassBooking").document(docID);
+                    docRef.update("classStatus", "Class rejected refund initiated. Try again.");
+                    docRef.update("conform" , "Denied");
+                    holder.denyBtw.setBackgroundResource(R.color.unread_message);
+                    holder.acceptBtw.setBackgroundResource(R.color.unread_message);
+                    holder.conform.setText("Denied");
+                    transections.get(holder.getAdapterPosition()).setConform("Denied");
+
+                }
+            });
+
+            holder.acceptBtw.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    FirebaseFirestore voe_db_firestore = FirebaseFirestore.getInstance();
+                    DocumentReference docRef = voe_db_firestore.collection("ClassBooking").document(docID);
+                    docRef.update("classStatus", "Class Conformed");
+                    docRef.update("conform" , "Accepted");
+                    holder.acceptBtw.setBackgroundResource(R.color.unread_message);
+                    holder.denyBtw.setBackgroundResource(R.color.unread_message);
+                    holder.conform.setText("Accepted");
+                    transections.get(holder.getAdapterPosition()).setConform("Accepted");
+
+                }
+            });
+        }else {
+            holder.denyBtw.setBackgroundResource(R.color.unread_message);
+            holder.acceptBtw.setBackgroundResource(R.color.unread_message);
+            holder.conform.setText(conform);
+        }
+
+//        if(conform.equals("Conform class")){
+//            holder.acceptBtw.setBackgroundResource(R.color.voe_color);
+//            holder.acceptBtw.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    FirebaseFirestore voe_db_firestore = FirebaseFirestore.getInstance();
+//                    DocumentReference docRef = voe_db_firestore.collection("ClassBooking").document(docID);
+//                    docRef.update("classStatus", "Class Conformed");
+//                    docRef.update("conform" , "Accepted");
+//                    holder.acceptBtw.setBackgroundResource(R.color.unread_message);
+//                    holder.conform.setText("Accepted");
+//                    transections.get(holder.getAdapterPosition()).setConform("Accepted");
+//
+//                }
+//            });
+//        }else {
+//            holder.denyBtw.setBackgroundResource(R.color.unread_message);
+//        }
     }
 
 
@@ -90,9 +154,9 @@ public class TransectionRecyclerViewAdapter extends RecyclerView.Adapter<Transec
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView teacherName, no_of_classes , selectedClass , selectedSubject , paymentId , timestamp,amount,userID,userName,userMobleNo,userEmail,isComplete;
+        TextView teacherName, no_of_classes , selectedClass , selectedSubject , paymentId , timestamp,amount,userID,userName,userMobleNo,userEmail,isComplete,conform;
 //        LinearLayout cardView;
-        Button complete;
+        Button complete,acceptBtw,denyBtw;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -110,6 +174,9 @@ public class TransectionRecyclerViewAdapter extends RecyclerView.Adapter<Transec
             userEmail = itemView.findViewById(R.id.userEmail);
             isComplete = itemView.findViewById(R.id.isCompleted);
             complete = itemView.findViewById(R.id.completeButton);
+            conform = itemView.findViewById(R.id.conformation);
+            acceptBtw = itemView.findViewById(R.id.acceptBtw);
+            denyBtw = itemView.findViewById(R.id.denyBtw);
         }
     }
 }

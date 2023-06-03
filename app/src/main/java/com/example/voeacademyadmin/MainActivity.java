@@ -62,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
 
-                                transections.add(new TransectionModal( document.getId(), (String) document.get("userName"),(String)document.get("userMoblileNo"),(String)document.get("userEmail"),(String)document.get("userID"),"Teacher Name : "+document.get("teacherName"),"Classes Booked : "+document.get("no_of_classes"),"Amount paid : "+document.get("amount"),"Payment ID : "+document.get("paymentID"),"Subject : "+document.get("subject"),"Class : "+document.get("selectedClass"), (Timestamp)document.get("timeStamp") , (Boolean) document.get("isClassesCompleted")));
+                                transections.add(new TransectionModal( document.getId(), (String) document.get("userName"),(String)document.get("userMoblileNo"),(String)document.get("userEmail"),(String)document.get("userID"),"Teacher Name : "+document.get("teacherName"),"Classes Booked : "+document.get("no_of_classes"),"Amount paid : "+document.get("amount"),"Payment ID : "+document.get("paymentID"),"Subject : "+document.get("subject"),"Class : "+document.get("selectedClass"), (Timestamp)document.get("timeStamp") , (Boolean) document.get("isClassesCompleted") , (String) document.get("classStatus") , (String) document.get("conform")));
 
                             }
 
